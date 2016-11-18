@@ -1,0 +1,19 @@
+<div class="ui secondary pointing menu">
+  <a class={{homeActive}} (click)="clickHome()">
+    Home
+  </a>
+  <a class={{loginActive}} (click)="clickLogin()">
+    Login
+  </a>
+  <div class="right menu" style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px;">
+    <a class="ui primary button">
+      Login
+    </a>
+  </div>
+</div>
+
+<app-loginpage *ngIf="loginpageClicked"></app-loginpage>
+
+<div class="ui segment">
+  <p>Kord Pro is a fun and easy service that allows users to create, edit and view Chord Pro Sheets.</p>
+</div>
