@@ -8,6 +8,7 @@ export class EditpageService {
     
     constructor (private http: Http) {}
     
+    //Saves chordpro file and sends to server
     save() {
         return this.http.get('https://jsonplaceholder.typicode.com/posts/1')
             .map(res => res.json());

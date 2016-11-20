@@ -3,23 +3,34 @@
     Edit
   </h1>
   
-  <div class="ui form">
+  <!-- Form -->
+  <div class="ui form" [class.error] = "errorHappened">
     
+    <!-- Error Message -->
+    <div class="ui error message">
+      <div class="header">Error</div>
+      <p>{{errorMessage}}</p>
+    </div>
+    
+    <!-- Chord Sheet Name -->
     <div class="field">
       <label>Chord Sheet Name:</label>
       <input type="text" [(ngModel)]="chordSheetName">
     </div>
     
+    <!-- ChordPro File Upload -->
     <div class="field">
       <label>Upload ChordPro File:</label>
       <input type="file" (change)="fileUpload($event)">
     </div>
   
-    <div class="field">
+    <!-- Manual ChordPro Input Field -->
+    <div class="field" *ngIf="fileUploaded">
       <label>Manually Enter ChordPro File:</label>
       <textarea [(ngModel)]="typedChordSheet"></textarea>
     </div>
     
+    <!-- Save and Clear Buttons -->
     <button class="ui primary button" (click)="save()">
       Save
     </button>
@@ -27,6 +38,7 @@
       Clear
     </button>
     
+    <!-- Privacy Checkbox -->
     <div class="ui checkbox" style="margin-left: 20px;">
       <input type="checkbox" name="example" [(ngModel)]="privacyOption">
       <label>Make private</label>
