@@ -1,0 +1,37 @@
+<div class="ui main text container">
+  <h1 class="ui teal header">
+    Edit
+  </h1>
+  
+  <div class="ui form">
+    
+    <div class="field">
+      <label>Chord Sheet Name:</label>
+      <input type="text" [(ngModel)]="chordSheetName">
+    </div>
+    
+    <div class="field">
+      <label>Upload ChordPro File:</label>
+      <input type="file" (change)="fileUpload($event)">
+    </div>
+  
+    <div class="field">
+      <label>Manually Enter ChordPro File:</label>
+      <textarea [(ngModel)]="typedChordSheet"></textarea>
+    </div>
+    
+    <button class="ui primary button" (click)="save()">
+      Save
+    </button>
+    <button class="ui button" (click)="clear()">
+      Clear
+    </button>
+    
+    <div class="ui checkbox" style="margin-left: 20px;">
+      <input type="checkbox" name="example" [(ngModel)]="privacyOption">
+      <label>Make private</label>
+    </div>
+  </div>
+</div>
+
+
