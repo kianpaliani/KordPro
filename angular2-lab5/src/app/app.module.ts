@@ -9,6 +9,14 @@ import { AppComponent } from './app.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { EditpageComponent } from './editpage/editpage.component';
 
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: AppComponent },
+  { path: 'loginpage', component: LoginpageComponent },
+  { path: 'editpage', component: EditpageComponent }
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +27,8 @@ import { EditpageComponent } from './editpage/editpage.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
