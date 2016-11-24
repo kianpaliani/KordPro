@@ -43,7 +43,9 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
   privacyOption: boolean;
   
   errorHappened: boolean = false;
-  errorMessage: string = "";
+  errorMessage: string[] = [];
+  warningHappened: boolean = false;
+  warningMessage: string[] = [];
   fileUploaded: boolean = true;
   
   uploadFileInput: any = null;
@@ -60,7 +62,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
     
     //Get rid of error
     this.errorHappened = false;
-    this.errorMessage = "";
+    this.errorMessage = [];
     
     //Get file
     let file = event.srcElement.files[0];
@@ -71,7 +73,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
     if (file.size >= Math.pow(1024, 2)) {
       console.log("File too big");
       event.target.value = "";
-      this.errorMessage = "File size is too large.";
+      this.errorMessage.push("File size is too large.");
       this.errorHappened = true;
     }
     
@@ -83,18 +85,40 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
     
     //Error in file loading
     reader.onerror = function (evt: any) {
-        this.errorMessage = "Error in loading file.";
+        this.errorMessage.push("Error in loading file.");
         this.errorHappened = true;
     }.bind(this);
   }
   
   //Save button clicked
   save() {
-    //errorsAndWarnings = this.chordProValidate(typedChordSheet));
-    //alert(errorsAndWarnings);
-    //if (errorsAndWarnings[0] ! = []) {
-    this.editpageService.save().subscribe(
-      output => console.log(output));
+    if (this.typedChordSheet != "") {
+      this.errorMessage = [];
+      this.warningMessage = [];
+      let errorsAndWarnings = this.chordProValidate(this.typedChordSheet);
+      
+      for (let error of errorsAndWarnings[0]) {
+        let errorLineNum = error.slice(0, 1)
+        let actualError = error.slice(1);
+        this.errorMessage.push("Line " + errorLineNum + ": " + actualError);
+      }
+      if (this.errorMessage != undefined && this.errorMessage.length > 0) {
+        this.errorHappened = true;
+      }
+      
+      for (let warning of errorsAndWarnings[1]) {
+        let warningLineNum = warning.slice(0, 1)
+        let actualWarning = warning.slice(1);
+        this.warningMessage.push("Line " + warningLineNum + ": " + actualWarning);
+      }
+      if (this.warningMessage != undefined && this.warningMessage.length > 0) {
+        this.warningHappened = true;
+      }
+    }
+    
+    //if (errorsAndWarnings[0] == []) {
+    //this.editpageService.save().subscribe(
+      //output => console.log(output));
       //error =>  this.errorMessage = <any>error
     //}
   }
@@ -123,12 +147,13 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
     let lineNum: number = 0;
 
     for (let line of lines) {
+      
       line.trim();
-      console.log(lineNum + " " + line);
-      if (line.indexOf("{") >= 1) {
+      
+      if (line.indexOf("{") >= 1 || (line.indexOf("{") < 0 && line.includes("}"))) {
           errors.push(lineNum + "Starting curly brace is somewhere other than at the start of the line.");
       }
-      if ((line.indexOf("}") <= line.length - 2) && (line.indexOf("}") >= 0)) {
+      if (((line.indexOf("}") <= line.length - 2) && (line.indexOf("}") >= 0)) || (line.indexOf("}") < 0 && line.includes("{"))) {
           errors.push(lineNum + "Ending curly brace is somewhere other than the end of the line.");
       }
       if (line.includes("{title") || line.includes("{t")) {

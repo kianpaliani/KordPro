@@ -6,16 +6,10 @@ import { HttpModule } from '@angular/http';
 import { JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { EditpageComponent } from './editpage/editpage.component';
-
-import { RouterModule, Routes } from '@angular/router';
-
-const appRoutes: Routes = [
-  { path: '', component: AppComponent },
-  { path: 'loginpage', component: LoginpageComponent },
-  { path: 'editpage', component: EditpageComponent }
-];
 
 @NgModule({
   declarations: [
@@ -28,7 +22,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     JsonpModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

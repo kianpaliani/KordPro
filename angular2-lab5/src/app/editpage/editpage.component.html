@@ -4,12 +4,25 @@
   </h1>
   
   <!-- Form -->
-  <div class="ui form" [class.error] = "errorHappened">
+  <div class="ui form" [class.error] = "errorHappened" [class.warning] = "warningHappened">
     
     <!-- Error Message -->
     <div class="ui error message">
       <div class="header">Error</div>
-      <p>{{errorMessage}}</p>
+      <ul class="list">
+        <li *ngFor="let error of errorMessage">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    
+    <div class="ui warning message">
+      <div class="header">Warning</div>
+        <ul class="list">
+          <li *ngFor="let warning of warningMessage">
+            {{warning}}
+          </li>
+        </ul>
     </div>
     
     <!-- Chord Sheet Name -->
