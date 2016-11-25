@@ -4,9 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { EditpageComponent } from './editpage/editpage.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'loginpage', component: LoginpageComponent },
   { path: 'editpage', component: EditpageComponent }
 ];

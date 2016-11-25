@@ -10,12 +10,14 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { EditpageComponent } from './editpage/editpage.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginpageComponent,
-    EditpageComponent
+    EditpageComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

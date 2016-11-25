@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,6 +16,7 @@
   "homepage": "https://bitbucket.org/kpaliani/se3316-lab5#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "mongoose": "^4.6.8",
     "morgan": "^1.7.0",
