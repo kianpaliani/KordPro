@@ -5,6 +5,11 @@
     Home
   </a>
   
+  <!-- Security and Privacy Policy Button -->
+  <a class="item" routerLink="/privacypolicy" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;">
+    Security & Privacy Policy
+  </a>
+  
   <!-- Login Button -->
   <div class="right menu" style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px;">
       <a class="ui teal button" routerLink="/loginpage" routerLinkActive="active">
@@ -14,4 +19,22 @@
   
 </div>
 
-<p>Nothing here yet...</p>
+<div class="ui main text container">
+  <h1 class="ui center aligned teal header">
+    KordPro
+  </h1>
+  <p>
+    Welcome to KordPro!  KordPro is a fun social network that allows you to create, view and update all your Chord Pro files.
+    In addition, you can view anyone's public chord sheets!
+  </p>
+  
+  <div class="ui segment" *ngFor="let chordProSheet of chordProSheets">
+    <h3 class="ui left aligned header">
+      {{chordProSheet.title}}
+    </h3>
+    <p>
+      {{chordProSheet.owner}}
+    </p>
+  </div>
+  
+</div>

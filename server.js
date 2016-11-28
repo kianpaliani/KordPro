@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 //Configure logger and parsers
 app.use(logger('dev'));
-app.use(cookieParser());
+app.use(cookieParser("This is my secret"));
 
 //Set port to 8080
 var port = process.env.PORT || 8080;

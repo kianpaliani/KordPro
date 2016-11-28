@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {EditpageService} from '../editpage.service'
+import {EditpageService} from '../editpage.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { LoginService } from '../login.service';
+
+import {LoggedinmenuComponent} from '../loggedinmenu/loggedinmenu.component'
 
 @Component({
   selector: 'app-editpage',
@@ -35,8 +39,6 @@ The [D7]baffled king [B7]composing halle[Em]lujah\n\
 Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     [Em]  [G]  [Em]\n\
 {eoc}";
   
-  private editpageService: EditpageService;
-  
   chordSheetName:string;
   file: any;
   typedChordSheet: string;
@@ -48,9 +50,13 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
   warningMessage: string[] = [];
   fileUploaded: boolean = true;
   
+  //errorsAndWarnings: string[][];
+  
   uploadFileInput: any = null;
   
-  constructor(editpageService: EditpageService) { 
+  username: string;
+  
+  constructor(private editpageService: EditpageService, private loginService: LoginService, private router: Router, private route: ActivatedRoute) { 
     this.editpageService = editpageService;
   }
   
@@ -114,13 +120,19 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
       if (this.warningMessage != undefined && this.warningMessage.length > 0) {
         this.warningHappened = true;
       }
+      
+      if (errorsAndWarnings[0] != undefined && errorsAndWarnings[0].length > 0) {
+        this.editpageService.save(this.username, this.chordSheetName, this.typedChordSheet, this.privacyOption)
+          .subscribe(isSuccess => {
+            if (isSuccess == "Save Success") {
+              //this.router.navigate(['/editpage']);
+            } else {
+              alert("Login Failed");
+            }
+        });
+      }
+      
     }
-    
-    //if (errorsAndWarnings[0] == []) {
-    //this.editpageService.save().subscribe(
-      //output => console.log(output));
-      //error =>  this.errorMessage = <any>error
-    //}
   }
   
   //Clear button clicked
@@ -134,7 +146,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
       }
       this.fileUploaded = true;
     }
-    console.log(this.chordProValidate(this.testString));
+    //console.log(this.chordProValidate(this.testString));
   }
   
   chordProValidate(input: string): string[][] {
@@ -230,6 +242,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => this.username = params['username']);
   }
 
 }

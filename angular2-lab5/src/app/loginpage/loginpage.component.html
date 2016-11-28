@@ -3,6 +3,10 @@
   <a class="item" routerLink="/home" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;">
     Home
   </a>
+  <!-- Security and Privacy Policy Button -->
+  <a class="item" routerLink="/privacypolicy" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;">
+    Security & Privacy Policy
+  </a>
 </div>
 
 <div class="ui middle aligned center aligned grid">
@@ -17,16 +21,16 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <input type="text" name="email" placeholder="Username">
+            <input type="text" name="email" placeholder="Username" [(ngModel)]="loginUsername">
           </div>
         </div>
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password" [(ngModel)]="loginPassword">
           </div>
         </div>
-        <div class="ui fluid large teal submit button">Login</div>
+        <div class="ui fluid large teal submit button" (click)="login()">Login</div>
       </div>
 
       <div class="ui error message"></div>
@@ -44,16 +48,16 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <input type="text" name="email" placeholder="Username">
+            <input type="text" name="email" placeholder="Username" [(ngModel)]="createAccountUsername">
           </div>
         </div>
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password" [(ngModel)]="createAccountPassword">
           </div>
         </div>
-        <div class="ui fluid large teal submit button">Create Account</div>
+        <div class="ui fluid large teal submit button" (click)="createAccount()">Create Account</div>
       </div>
 
       <div class="ui error message"></div>
