@@ -120,14 +120,15 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
       if (this.warningMessage != undefined && this.warningMessage.length > 0) {
         this.warningHappened = true;
       }
-      
+      console.log(this.username);
       if (errorsAndWarnings[0] != undefined && errorsAndWarnings[0].length > 0) {
         this.editpageService.save(this.username, this.chordSheetName, this.typedChordSheet, this.privacyOption)
           .subscribe(isSuccess => {
             if (isSuccess == "Save Success") {
+              console.log("save success");
               //this.router.navigate(['/editpage']);
             } else {
-              alert("Login Failed");
+              alert("Save Failed");
             }
         });
       }

@@ -19,8 +19,6 @@ export class LoginpageComponent implements OnInit {
   login() {
     this.loginService.login(this.loginUsername, this.loginPassword)
     .subscribe(isSuccess => {
-      console.log(this.loginService.loggedIn);
-      
       if (isSuccess == "Login Success") {
         this.router.navigate(['/editpage', this.loginUsername]);
       } else {
@@ -34,7 +32,6 @@ export class LoginpageComponent implements OnInit {
   createAccount() {
     this.loginService.createAccount(this.createAccountUsername, this.createAccountPassword)
     .subscribe(isSuccess => {
-      
       if (isSuccess == "Create Account Success") {
         console.log("created account  ");
         this.router.navigate(['/editpage', this.loginUsername]);
@@ -48,6 +45,7 @@ export class LoginpageComponent implements OnInit {
   
   ngOnInit() {
     if(this.loginService.loggedIn) {
+      //change to renavigate to logged in page
       this.router.navigateByUrl('/home');
     }
   }
