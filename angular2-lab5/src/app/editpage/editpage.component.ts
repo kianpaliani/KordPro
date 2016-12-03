@@ -83,33 +83,24 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
     
     //Checks to make sure file size is less than 1Mb
     if (file.size >= Math.pow(1024, 2)) {
-      console.log("File too big");
       event.target.value = "";
-      this.errorMessage.push("File size is too large.");
-      this.errorHappened = true;
+      alert("File size is too large.");
     }
     
-
-
     //File loads
     reader.onload = function(evt: any) {
       //Checks to make sure the file is of type plain text
       if (file.type != "text/plain") {
         event.target.value = "";
-        this.errorMessage.push("File must be of type plain text.");
-        this.errorHappened = true;
+        alert("File must be of type plain text.");
       } else {
-        console.log(evt.target.result);
-        this.fileContent = evt.target.result;
         this.typedChordSheet = evt.target.result;
-        //this.fileUploaded = false;
       }
     }.bind(this);
     
     //Error in file loading
     reader.onerror = function (evt: any) {
-        this.errorMessage.push("Error in loading file.");
-        this.errorHappened = true;
+        alert("Error in loading file.");
     }.bind(this);
   }
   
@@ -121,6 +112,8 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
       let errorsAndWarnings: string[][] = [];
       this.errorMessage = [];
       this.warningMessage = [];
+      this.errorHappened = false;
+      this.warningHappened = false;
       
       errorsAndWarnings = this.chordProValidate(this.typedChordSheet);
       
