@@ -19,10 +19,10 @@
       <button class="ui button" (click)="viewChordProSheet(chordProSheet.title, chordProSheet.owner)">
         View
       </button>
-      <button class="ui button" (click)="editChordProSheet(chordProSheet.title)">
+      <button class="ui button" (click)="editChordProSheet(chordProSheet.title)" *ngIf="chordProSheet.owner == username">
         Edit
       </button>
-      <button class="negative ui button" (click)="deleteChordProSheet(chordProSheet.title)">
+      <button class="negative ui button" (click)="deleteChordProSheet(chordProSheet.title)" *ngIf="chordProSheet.owner == username">
         Delete
       </button>
     </span>
