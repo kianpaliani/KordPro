@@ -65,12 +65,23 @@ router.post('/', function(req, res, next) {
     //Set user properties
     user.username = username;
     user.hashedPassword = hash;
-    user.save(function(err, savedUser) {
-        if (!err) {
-            res.cookie("username", username, {signed: true});
-            res.send("Create Account Success");
-        }else {
-            res.status(500).send("Save Failed");
+    
+    //Find username
+    User.find({username: username}).exec(function(err, users) {
+        if (!err && users.length == 0) {
+            //Create user
+            user.save(function(err, savedUser) {
+                if (!err) {
+                    res.cookie("username", username, {signed: true});
+                    res.send("Create Account Success");
+                }else {
+                    res.status(500).send("Save Failed");
+                }
+            });
+        } else if (!err && users.length > 0) {
+            res.send("Username already exists");
+        } else {
+            res.send("Find username error");
         }
     });
 });

@@ -20,6 +20,7 @@ export class LoginpageComponent implements OnInit {
     this.loginService.login(this.loginUsername, this.loginPassword)
     .subscribe(isSuccess => {
       if (isSuccess == "Login Success") {
+        console.log("Logged in");
         this.router.navigateByUrl('/loggedinhome');
       } else {
         alert("Login Failed");
@@ -35,8 +36,10 @@ export class LoginpageComponent implements OnInit {
       if (isSuccess == "Create Account Success") {
         console.log("created account");
         this.router.navigateByUrl('/loggedinhome');
+      } else if (isSuccess == "Username already exists") {
+        alert("Username is taken");
       } else {
-        alert("Login Failed");
+        alert("Create Account Failed");
         this.createAccountUsername = "";
         this.createAccountPassword = "";
       }
