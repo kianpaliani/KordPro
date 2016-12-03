@@ -11,9 +11,10 @@
     <h3 class="ui left aligned header">
       {{chordProSheet.title}}
     </h3>
-    <p>
-      {{chordProSheet.owner}}
-    </p>
+    <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.owner}}</p>
+    <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.isPrivate}}</p>
+    <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.versionNumber}}</p>
+    <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.revisedDate}}</p>
     <span>
       <button class="ui button" (click)="viewChordProSheet(chordProSheet.title, chordProSheet.owner)">
         View
