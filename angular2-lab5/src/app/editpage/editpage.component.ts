@@ -294,7 +294,10 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
                                   this.oldChordSheetName = this.chordProSheet.title;
                                   this.typedChordSheet = this.chordProSheet.content;
                                   this.privacyOption = this.chordProSheet.isPrivate;
-                                }, err => console.log("Get chordprosheet failed"));
+                                }, err => {
+                                  console.log("Get chordprosheet failed");
+                                  this.router.navigate(['/loggedinhome']);
+                                });
     } else {
       this.editpageTitle = "Create";
     }
