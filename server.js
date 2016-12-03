@@ -27,7 +27,7 @@ app.use('/api', api);
 app.use('/',express.static(__dirname+'/angular2-lab5/dist'));
 
 // Serve up semantic
-app.use('/semantic', express.static(__dirname+'/semantic'))
+app.use('/semantic', express.static(__dirname+'/semantic'));
 
 //For any route that doesn't exist, serve up the index.html page
 app.get('/*', function (req, res) {

@@ -2,8 +2,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ChordProSheetSchema = new Schema({
-    owner: {type: String, unique: true},
-    title: {type: String, unique: true},
+    owner: String,
+    title: String,
     content: String,
     versionNumber: Number,
     revisedDate: String,

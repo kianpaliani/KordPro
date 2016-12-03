@@ -6,11 +6,17 @@ var router = express.Router({mergeParams: true});
 var bcrypt = require('bcrypt');
 var bodyParser = require("body-parser");
 
-//Getting mongoose
-var mongoose = require("./chord_api").mongoose;
-
 //Get schemas
 var User = require("./user.js");
+
+//Gets the currently logged in user's username
+router.get('/user', function(req, res, next) {
+    if (req.signedCookies.username) {
+        res.send(req.signedCookies.username);
+    } else {
+        res.send("User not logged in");
+    }
+});
 
 //Login user
 router.post('/login', function(req, res, next) {

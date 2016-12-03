@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from '../login.service'
+import { LoginService } from '../login.service'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ export class LoginpageComponent implements OnInit {
     this.loginService.login(this.loginUsername, this.loginPassword)
     .subscribe(isSuccess => {
       if (isSuccess == "Login Success") {
-        this.router.navigate(['/editpage', this.loginUsername]);
+        this.router.navigateByUrl('/loggedinhome');
       } else {
         alert("Login Failed");
         this.loginUsername = "";
@@ -33,8 +33,8 @@ export class LoginpageComponent implements OnInit {
     this.loginService.createAccount(this.createAccountUsername, this.createAccountPassword)
     .subscribe(isSuccess => {
       if (isSuccess == "Create Account Success") {
-        console.log("created account  ");
-        this.router.navigate(['/editpage', this.loginUsername]);
+        console.log("created account");
+        this.router.navigateByUrl('/loggedinhome');
       } else {
         alert("Login Failed");
         this.createAccountUsername = "";
@@ -44,9 +44,9 @@ export class LoginpageComponent implements OnInit {
   }
   
   ngOnInit() {
+    //Navigate to logged in home if already logged in
     if(this.loginService.loggedIn) {
-      //change to renavigate to logged in page
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/loggedinhome');
     }
   }
 

@@ -9,14 +9,14 @@ export class EditpageService {
     constructor (private http: Http) {}
     
     //Saves chordpro file and sends to server
-    save(username:string, name: string, content: string, privacyOption: boolean) {
+    save(name: string, content: string, privacyOption: boolean, newChordSheet: boolean, oldChordSheetName: string) {
         
         let headers = new Headers({ 'Content-Type': 'application/json' }); //Set content type to JSON
         let options = new RequestOptions({ headers: headers }); //Create a request option
       
          //Make http post to save chordprosheet
          return this.http
-            .post('/api/chordprosheet/save', JSON.stringify({username:username, name: name, content: content, privacyOption: privacyOption}), options)
+            .post('/api/chordprosheet/save', JSON.stringify({name: name, content: content, privacyOption: privacyOption, newChordSheet: newChordSheet, oldChordSheetName: oldChordSheetName}), options)
             .map(res => res.text());
     }
 }

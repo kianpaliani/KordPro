@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+import { LoggedinhomeComponent } from './loggedinhome/loggedinhome.component';
 import { EditpageComponent } from './editpage/editpage.component';
 import { HomeComponent } from './home/home.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
@@ -14,11 +15,11 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'loginpage', component: LoginpageComponent },
   { path: 'privacypolicy', component: PrivacypolicyComponent },
-  { path: 'editpage/:username', component: EditpageComponent, canActivate: [AuthGuard] },
+  { path: 'editpage/:title', component: EditpageComponent, canActivate: [AuthGuard] },
+  { path: 'editpage', component: EditpageComponent, canActivate: [AuthGuard] },
+  { path: 'loggedinhome', component: LoggedinhomeComponent, canActivate: [AuthGuard] },
   {path: '**', redirectTo: '/home' }
 ];
-
-//, canActivate: [AuthGuard]
 
 @NgModule({
   imports: [

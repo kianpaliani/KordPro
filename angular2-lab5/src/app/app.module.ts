@@ -16,6 +16,8 @@ import { LoggedinmenuComponent } from './loggedinmenu/loggedinmenu.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { AuthGuard } from './auth-guard.service';
 import { LoginService } from './login.service';
+import { LoggedinhomeComponent } from './loggedinhome/loggedinhome.component';
+import { ChordprosheetserviceService } from './chordprosheetservice.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { LoginService } from './login.service';
     HomeComponent,
     LoggedoutmenuComponent,
     LoggedinmenuComponent,
-    PrivacypolicyComponent
+    PrivacypolicyComponent,
+    LoggedinhomeComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { LoginService } from './login.service';
   ],
   providers: [
     AuthGuard,
-    LoginService
+    LoginService,
+    ChordprosheetserviceService
     ],
   bootstrap: [AppComponent]
 })

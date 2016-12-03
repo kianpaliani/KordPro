@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {EditpageService} from '../editpage.service';
+import { EditpageService } from '../editpage.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { LoggedinmenuComponent } from '../loggedinmenu/loggedinmenu.component';
 import { LoginService } from '../login.service';
-
-import {LoggedinmenuComponent} from '../loggedinmenu/loggedinmenu.component'
+import { ChordprosheetserviceService } from '../chordprosheetservice.service';
 
 @Component({
   selector: 'app-editpage',
@@ -42,7 +43,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
   chordSheetName:string;
   file: any;
   typedChordSheet: string;
-  privacyOption: boolean;
+  privacyOption: boolean = false;
   
   errorHappened: boolean = false;
   errorMessage: string[] = [];
@@ -50,13 +51,18 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
   warningMessage: string[] = [];
   fileUploaded: boolean = true;
   
-  //errorsAndWarnings: string[][];
-  
   uploadFileInput: any = null;
+  fileContent: string;
   
   username: string;
+  title: string;
+  chordProSheet;
+  newChordSheet:boolean = true;
+  oldChordSheetName: string = "";
   
-  constructor(private editpageService: EditpageService, private loginService: LoginService, private router: Router, private route: ActivatedRoute) { 
+  editpageTitle: string = "";
+  
+  constructor(private editpageService: EditpageService, private loginService: LoginService, private router: Router, private route: ActivatedRoute, private chordProSheetService: ChordprosheetserviceService) { 
     this.editpageService = editpageService;
   }
   
@@ -83,10 +89,21 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
       this.errorHappened = true;
     }
     
+
+
     //File loads
     reader.onload = function(evt: any) {
-       console.log(evt.target.result);
-       this.fileUploaded = false;
+      //Checks to make sure the file is of type plain text
+      if (file.type != "text/plain") {
+        event.target.value = "";
+        this.errorMessage.push("File must be of type plain text.");
+        this.errorHappened = true;
+      } else {
+        console.log(evt.target.result);
+        this.fileContent = evt.target.result;
+        this.typedChordSheet = evt.target.result;
+        //this.fileUploaded = false;
+      }
     }.bind(this);
     
     //Error in file loading
@@ -98,10 +115,14 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
   
   //Save button clicked
   save() {
-    if (this.typedChordSheet != "") {
+    
+    if (this.typedChordSheet != "" && this.chordSheetName != "") {
+      
+      let errorsAndWarnings: string[][] = [];
       this.errorMessage = [];
       this.warningMessage = [];
-      let errorsAndWarnings = this.chordProValidate(this.typedChordSheet);
+      
+      errorsAndWarnings = this.chordProValidate(this.typedChordSheet);
       
       for (let error of errorsAndWarnings[0]) {
         let errorLineNum = error.slice(0, 1)
@@ -120,34 +141,42 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
       if (this.warningMessage != undefined && this.warningMessage.length > 0) {
         this.warningHappened = true;
       }
-      console.log(this.username);
-      if (errorsAndWarnings[0] != undefined && errorsAndWarnings[0].length > 0) {
-        this.editpageService.save(this.username, this.chordSheetName, this.typedChordSheet, this.privacyOption)
+      
+      if (errorsAndWarnings[0] != undefined && errorsAndWarnings[0].length == 0) {
+
+        this.editpageService.save(this.chordSheetName, this.typedChordSheet, this.privacyOption, this.newChordSheet, this.oldChordSheetName)
           .subscribe(isSuccess => {
             if (isSuccess == "Save Success") {
               console.log("save success");
-              //this.router.navigate(['/editpage']);
+              this.router.navigate(['/loggedinhome']);
+            } else if (isSuccess == "ChordProSheet with that title already exists") {
+              alert("ChordProSheet with that title already exists");
             } else {
               alert("Save Failed");
             }
         });
       }
       
+    } else {
+      alert("ChordPro sheet name and contents cannot be empty.");
     }
   }
   
   //Clear button clicked
   clear() {
     if (window.confirm("Are you sure you want to clear?")) {
-      this.chordSheetName = "";
-      this.typedChordSheet= "";
-      this.privacyOption = false;
-      if (this.uploadFileInput != null) {
-        this.uploadFileInput.value = "";
+      if (this.newChordSheet) {
+        this.chordSheetName = "";
+        this.typedChordSheet= "";
+        this.privacyOption = false;
+        if (this.uploadFileInput != null) {
+          this.uploadFileInput.value = "";
+        }
+        this.fileUploaded = true;
+      } else {
+        this.router.navigate(['/loggedinhome']);
       }
-      this.fileUploaded = true;
     }
-    //console.log(this.chordProValidate(this.testString));
   }
   
   chordProValidate(input: string): string[][] {
@@ -174,6 +203,9 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
           if (titleOccurrences >= 2) {
               errors.push(lineNum + "Cannot have more than one title block within the same 'new_song' block.");
           }
+      }
+      if (line.includes("{new_song") || line.includes("{ns")) {
+          titleOccurrences = 0;
       }
       if (!line.includes("{") && (line.indexOf("#") >= 1 || line.indexOf("#") < 0) && line!="" && titleOccurrences == 0) {
           errors.push(lineNum + "Missing title directive before start of lyrics.");
@@ -243,7 +275,35 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.username = params['username']);
+    
+    //Get the currently logged in user
+    this.loginService.getUser().subscribe(user => this.username = user, err => console.log("Get user failed"));
+    
+    //Get the title of the chord sheet from the paramaters (if one exists)
+    this.route.params.subscribe(params => this.title = params['title']);
+    
+    //Checks to see if a title parameter was passed in the url
+    if (this.title != undefined) {
+      
+      //Get chordprosheet
+      this.chordProSheetService.getChordProSheet(this.title)
+                                .subscribe(chordProSheet => {
+                                  
+                                  //Get the chordprosheet
+                                  this.chordProSheet = chordProSheet;
+                                
+                                  //Not creating a new chordsheet
+                                  this.newChordSheet = false;
+                                  this.editpageTitle = "Edit";
+                                
+                                  //Get data from chordProSheet
+                                  this.chordSheetName = this.chordProSheet.title;
+                                  this.oldChordSheetName = this.chordProSheet.title;
+                                  this.typedChordSheet = this.chordProSheet.content;
+                                  this.privacyOption = this.chordProSheet.isPrivate;
+                                }, err => console.log("Get chordprosheet failed"));
+    } else {
+      this.editpageTitle = "Create";
+    }
   }
-
 }

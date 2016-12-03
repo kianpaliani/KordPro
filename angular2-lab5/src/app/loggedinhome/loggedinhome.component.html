@@ -1,0 +1,30 @@
+<app-loggedinmenu></app-loggedinmenu>
+
+<div class="ui main text container">
+  <h1 class="ui center aligned teal header">
+    KordPro
+  </h1>
+  
+  <button class="positive ui button" (click)="createChordProSheet()">Create</button>
+  
+  <div class="ui segment" *ngFor="let chordProSheet of chordProSheets">
+    <h3 class="ui left aligned header">
+      {{chordProSheet.title}}
+    </h3>
+    <p>
+      {{chordProSheet.owner}}
+    </p>
+    <span>
+      <button class="ui button" (click)="viewChordProSheet(chordProSheet.title, chordProSheet.owner)">
+        View
+      </button>
+      <button class="ui button" (click)="editChordProSheet(chordProSheet.title)">
+        Edit
+      </button>
+      <button class="negative ui button" (click)="deleteChordProSheet(chordProSheet.title)">
+        Delete
+      </button>
+    </span>
+  </div>
+  
+</div>

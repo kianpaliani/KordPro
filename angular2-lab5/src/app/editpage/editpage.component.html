@@ -2,7 +2,7 @@
 
 <div class="ui main text container" style="padding-top: 10px">
   <h1 class="ui teal header">
-    Edit
+    {{editpageTitle}}
   </h1>
   
   <!-- Form -->
@@ -55,7 +55,7 @@
     
     <!-- Privacy Checkbox -->
     <div class="ui checkbox" style="margin-left: 20px;">
-      <input type="checkbox" name="example" [(ngModel)]="privacyOption">
+      <input type="checkbox" [(ngModel)]="privacyOption" name="privacyOption">
       <label>Make private</label>
     </div>
   </div>
