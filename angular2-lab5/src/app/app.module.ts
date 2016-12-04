@@ -18,6 +18,7 @@ import { AuthGuard } from './auth-guard.service';
 import { LoginService } from './login.service';
 import { LoggedinhomeComponent } from './loggedinhome/loggedinhome.component';
 import { ChordprosheetserviceService } from './chordprosheetservice.service';
+import { DmcapolicyComponent } from './dmcapolicy/dmcapolicy.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ChordprosheetserviceService } from './chordprosheetservice.service';
     LoggedoutmenuComponent,
     LoggedinmenuComponent,
     PrivacypolicyComponent,
-    LoggedinhomeComponent
+    LoggedinhomeComponent,
+    DmcapolicyComponent
   ],
   imports: [
     BrowserModule,

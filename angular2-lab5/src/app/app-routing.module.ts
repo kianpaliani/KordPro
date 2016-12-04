@@ -7,6 +7,7 @@ import { LoggedinhomeComponent } from './loggedinhome/loggedinhome.component';
 import { EditpageComponent } from './editpage/editpage.component';
 import { HomeComponent } from './home/home.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
+import { DmcapolicyComponent } from './dmcapolicy/dmcapolicy.component';
 
 import { AuthGuard } from './auth-guard.service';
 
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'loginpage', component: LoginpageComponent },
   { path: 'privacypolicy', component: PrivacypolicyComponent },
+  { path: 'dmca', component: DmcapolicyComponent },
   { path: 'editpage/:title', component: EditpageComponent, canActivate: [AuthGuard] },
   { path: 'editpage', component: EditpageComponent, canActivate: [AuthGuard] },
   { path: 'loggedinhome', component: LoggedinhomeComponent, canActivate: [AuthGuard] },
