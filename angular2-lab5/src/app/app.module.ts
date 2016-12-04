@@ -20,6 +20,8 @@ import { LoggedinhomeComponent } from './loggedinhome/loggedinhome.component';
 import { ChordprosheetserviceService } from './chordprosheetservice.service';
 import { DmcapolicyComponent } from './dmcapolicy/dmcapolicy.component';
 
+import { ResponsiveModule } from '../../node_modules/ng2-responsive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +39,8 @@ import { DmcapolicyComponent } from './dmcapolicy/dmcapolicy.component';
     FormsModule,
     HttpModule,
     JsonpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ResponsiveModule
   ],
   providers: [
     AuthGuard,
