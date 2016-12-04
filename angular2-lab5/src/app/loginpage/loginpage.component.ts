@@ -38,8 +38,8 @@ export class LoginpageComponent implements OnInit {
         if (isSuccess == "Create Account Success") {
           console.log("created account");
           this.router.navigateByUrl('/loggedinhome');
-        } else if (isSuccess == "Username already exists") {
-          alert("Username is taken");
+        } else if (isSuccess == "Email already exists") {
+          alert("Email is taken");
           this.createAccountUsername = "";
           this.createAccountPassword = "";
         } else {
