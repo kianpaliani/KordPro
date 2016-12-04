@@ -42,7 +42,7 @@
     <!-- Manual ChordPro Input Field -->
     <div class="field" *ngIf="fileUploaded">
       <label>Manually Enter ChordPro File:</label>
-      <textarea [(ngModel)]="typedChordSheet"></textarea>
+      <textarea [(ngModel)]="typedChordSheet" (keyup)="onKey($event)"></textarea>
     </div>
     
     <!-- Save and Clear Buttons -->
@@ -59,6 +59,11 @@
       <label>Make private</label>
     </div>
   </div>
+  
+  <div class="ui segment">
+    <div [innerHTML]="chordpro.format(typedChordSheet).html"></div>
+  </div>
+  
 </div>
 
 

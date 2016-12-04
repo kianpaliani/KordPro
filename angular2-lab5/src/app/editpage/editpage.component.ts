@@ -6,6 +6,8 @@ import { LoggedinmenuComponent } from '../loggedinmenu/loggedinmenu.component';
 import { LoginService } from '../login.service';
 import { ChordprosheetserviceService } from '../chordprosheetservice.service';
 
+var chordpro = require("chordprojs");
+
 @Component({
   selector: 'app-editpage',
   templateUrl: './editpage.component.html',
@@ -39,6 +41,8 @@ The [D7]baffled king [B7]composing halle[Em]lujah\n\
 {soc}\n\
 Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     [Em]  [G]  [Em]\n\
 {eoc}";
+  
+  chordpro = chordpro;
   
   chordSheetName:string;
   file: any;
@@ -303,6 +307,35 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
                                 });
     } else {
       this.editpageTitle = "Create";
+    }
+  }
+  
+  onKey(event:any) {
+    
+    let errorsAndWarnings: string[][] = [];
+    this.errorMessage = [];
+    this.warningMessage = [];
+    this.errorHappened = false;
+    this.warningHappened = false;
+    
+    errorsAndWarnings = this.chordProValidate(this.typedChordSheet);
+    
+    for (let error of errorsAndWarnings[0]) {
+      let errorLineNum = error.slice(0, 1)
+      let actualError = error.slice(1);
+      this.errorMessage.push("Line " + errorLineNum + ": " + actualError);
+    }
+    if (this.errorMessage != undefined && this.errorMessage.length > 0) {
+      this.errorHappened = true;
+    }
+    
+    for (let warning of errorsAndWarnings[1]) {
+      let warningLineNum = warning.slice(0, 1)
+      let actualWarning = warning.slice(1);
+      this.warningMessage.push("Line " + warningLineNum + ": " + actualWarning);
+    }
+    if (this.warningMessage != undefined && this.warningMessage.length > 0) {
+      this.warningHappened = true;
     }
   }
 }
