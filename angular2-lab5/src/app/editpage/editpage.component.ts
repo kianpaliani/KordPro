@@ -139,11 +139,14 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
 
         this.editpageService.save(this.chordSheetName, this.typedChordSheet, this.privacyOption, this.newChordSheet, this.oldChordSheetName)
           .subscribe(isSuccess => {
+            console.log(isSuccess);
             if (isSuccess == "Save Success") {
               console.log("save success");
               this.router.navigate(['/loggedinhome']);
             } else if (isSuccess == "ChordProSheet with that title already exists") {
               alert("ChordProSheet with that title already exists");
+            } else if (isSuccess == "Nothing has been edited") {
+              alert("Nothing has been edited");
             } else {
               alert("Save Failed");
             }
@@ -220,8 +223,8 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
       }
       if (line.includes("{") 
       && line.includes("}") 
-      && !line.includes("{new_song:")
-      && !line.includes("{ns:")
+      && !line.includes("{new_song")
+      && !line.includes("{ns")
       && !line.includes("{title:")
       && !line.includes("{t:")
       && !line.includes("{subtitle:")

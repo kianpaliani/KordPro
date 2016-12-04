@@ -20,10 +20,10 @@
         <div *ngSwitchCase="false">View</div>
         <div *ngSwitchCase="true">Hide</div>
       </button>
-      <button class="ui button" (click)="editChordProSheet(chordProSheet.title)" *ngIf="chordProSheet.chordProSheet.owner == username">
+      <button class="ui button" (click)="editChordProSheet(chordProSheet.chordProSheet.title)" *ngIf="chordProSheet.chordProSheet.owner == username">
         Edit
       </button>
-      <button class="negative ui button" (click)="deleteChordProSheet(chordProSheet.title)" *ngIf="chordProSheet.chordProSheet.owner == username">
+      <button class="negative ui button" (click)="deleteChordProSheet(chordProSheet.chordProSheet.title)" *ngIf="chordProSheet.chordProSheet.owner == username">
         Delete
       </button>
     </span>

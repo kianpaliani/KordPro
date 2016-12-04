@@ -34,7 +34,6 @@
         {{chordProSheet.chordProSheet.title}}
       </h3>
       <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.chordProSheet.owner}}</p>
-      <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.chordProSheet.isPrivate}}</p>
       <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.chordProSheet.versionNumber}}</p>
       <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.chordProSheet.revisedDate}}</p>
       <div [innerHTML]="chordpro.format(chordProSheet.chordProSheet.content).html" *ngIf="chordProSheet.visible"></div>

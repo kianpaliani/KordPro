@@ -39,9 +39,14 @@ export class LoggedinhomeComponent implements OnInit {
   deleteChordProSheet(chordProSheetTitle: string) {
     this.chordProSheetService.deleteChordProSheet(chordProSheetTitle)
                               .subscribe(output => {
-                                console.log(output);
                                 //Get logged in user's chordprosheets
-                                this.chordProSheetService.getUsersChordProSheets().subscribe(chordprosheets => this.chordProSheets = chordprosheets, err => console.log("Get failed"));
+                                this.chordProSheetService.getUsersChordProSheets()
+                                .subscribe((chordprosheets) => {
+                                  this.chordProSheetViews = chordprosheets.map(chordprosheet => {
+                                    return {chordProSheet: chordprosheet, visible: false};
+                                  });
+                                }, err => console.log("Get failed"));
+                                console.log(output);
                               },
                               err => console.log(err));
   }
