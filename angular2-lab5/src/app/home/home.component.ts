@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     //Navigate to loggedinhome if already logged in
-    if(this.loginService.loggedIn) {
+    if(this.loginService.isLoggedIn()) {
       this.router.navigateByUrl('/loggedinhome');
     }
     
