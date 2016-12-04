@@ -4,6 +4,8 @@ import { ChordprosheetserviceService } from '../chordprosheetservice.service';
 import {LoginService} from '../login.service'
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+var chordpro = require("chordprojs");
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +13,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   
-  chordProSheets: any = [];
+  chordpro = chordpro;
+  chordProSheetViews: {chordProSheet: any, visible: boolean}[] = [];
 
   constructor(private http: Http, private chordProSheetService: ChordprosheetserviceService, private loginService: LoginService, private router: Router) { }
 
@@ -22,7 +25,12 @@ export class HomeComponent implements OnInit {
     }
     
     //Get public chordprosheets
-    this.chordProSheetService.getPublicChordProSheets().subscribe(chordprosheets => this.chordProSheets = chordprosheets, err => console.log("Get failed"));
+    this.chordProSheetService.getPublicChordProSheets()
+    .subscribe((chordprosheets) => {
+      this.chordProSheetViews = chordprosheets.map(chordprosheet => {
+        return {chordProSheet: chordprosheet, visible: false};
+      });
+    }, err => console.log("Get failed"));
     
   }
 

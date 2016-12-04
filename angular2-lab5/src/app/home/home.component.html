@@ -28,14 +28,17 @@
     In addition, you can view anyone's public chord sheets!
   </p>
   
-  <div class="ui segment" *ngFor="let chordProSheet of chordProSheets">
-    <h3 class="ui left aligned header">
-      {{chordProSheet.title}}
-    </h3>
-    <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.owner}}</p>
-    <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.isPrivate}}</p>
-    <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.versionNumber}}</p>
-    <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.revisedDate}}</p>
+  <div class="ui segment" *ngFor="let chordProSheet of chordProSheetViews">
+    <div (click)="chordProSheet.visible = !chordProSheet.visible">
+      <h3 class="ui left aligned header">
+        {{chordProSheet.title}}
+      </h3>
+      <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.chordProSheet.owner}}</p>
+      <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.chordProSheet.isPrivate}}</p>
+      <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.chordProSheet.versionNumber}}</p>
+      <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.chordProSheet.revisedDate}}</p>
+      <div [innerHTML]="chordpro.format(chordProSheet.chordProSheet.content).html" *ngIf="chordProSheet.visible"></div>
+    </div>
   </div>
   
 </div>
