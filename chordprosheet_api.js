@@ -155,6 +155,8 @@ router.get('/', function(req, res, next) {
 //Get a specific chordprosheet for a loggedin user
 router.get('/:title', function(req, res, next) {
     
+    console.log("shouldn't be here");
+    
     //Checks to see if the user is logged in
     if (!req.signedCookies.username) {
         res.send("Get not allowed");
@@ -168,6 +170,7 @@ router.get('/:title', function(req, res, next) {
     ChordProSheet.find({owner: owner, title: title}).exec(function(err, chordProSheets) {
         if (!err) {
             res.send(chordProSheets[0]);
+            //res.send("hello");
         } else {
             res.status(500).send("Get chordprosheet failed");
         }
@@ -190,6 +193,28 @@ router.delete('/:title', function(req, res, next) {
             res.send("ChordProSheet deleted");
         } else {
             res.status(500).send("Delete failed");
+        }
+    });
+});
+
+//Get a specific chordprosheet for full screen view
+router.get('/:title/:owner', function(req, res, next) {
+    
+    var user = req.signedCookies.username;
+    
+    var title = req.params.title;
+    var owner = req.params.owner;
+    
+    //Gets a specific chordprosheet for the loggedin user
+    ChordProSheet.find({owner: owner, title: title}).exec(function(err, chordProSheets) {
+        if (!err) {
+            if (user == owner || !chordProSheets[0].isPrivate) {
+                res.send(chordProSheets[0]);
+            } else {
+                res.send("You do not have permission to view this chordprosheet");
+            }
+        } else {
+            res.status(500).send("Get chordprosheet failed");
         }
     });
 });

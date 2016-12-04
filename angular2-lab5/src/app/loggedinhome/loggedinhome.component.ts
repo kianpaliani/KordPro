@@ -28,9 +28,9 @@ export class LoggedinhomeComponent implements OnInit {
     this.router.navigate(['/editpage']);
   }
   
-  /*viewChordProSheet(string: chordProSheetTitle, string: chordProSheetOwner) {
-    //this.router.navigate(['/chordprosheetview', chordProSheetTitle, chordProSheetOwner]);
-  }*/
+  viewFullScreen(chordProSheetTitle: string, owner: string) {
+    this.router.navigate(['/fullscreen', chordProSheetTitle, owner]);
+  }
   
   editChordProSheet(chordProSheetTitle: string) {
     this.router.navigate(['/editpage', chordProSheetTitle]);

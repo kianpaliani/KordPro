@@ -31,5 +31,11 @@ export class ChordprosheetserviceService {
                 .delete('/api/chordprosheet/' + chordProSheetTitle)
                 .map(res => res.text());
   }
+  
+  getChordProSheetView(chordProSheetTitle: string, owner: string) {
+    return this.http
+                .get('/api/chordprosheet/' + chordProSheetTitle + '/' + owner)
+                .map(res => res.json());
+  }
 
 }

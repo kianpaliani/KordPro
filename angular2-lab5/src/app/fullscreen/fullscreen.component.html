@@ -1,0 +1,36 @@
+<app-loggedinmenu *ngIf="loggedIn"></app-loggedinmenu>
+
+<div class="ui menu" *ngIf="!loggedIn">
+  
+  <!-- Home Button -->
+  <a class="item" routerLink="/home" routerLinkActive="active">
+    Home
+  </a>
+  
+  <!-- Security and Privacy Policy Button -->
+  <a class="item" routerLink="/privacypolicy" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;" *hideItBootstrap="['xs']">
+    Security & Privacy Policy
+  </a>
+  
+   <!-- Security and Privacy Policy Button -->
+  <a class="item" routerLink="/privacypolicy" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;" *showItBootstrap="['xs']">
+    Policy
+  </a>
+  
+  <!-- DMCA Policy -->
+  <a class="item" routerLink="/dmca" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;">
+    DMCA
+  </a>
+  
+  <!-- Login Button -->
+  <div class="right menu" style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px;">
+      <a class="ui teal button" routerLink="/loginpage" routerLinkActive="active">
+        Login
+      </a>
+  </div>
+  
+</div>
+
+<div class="ui main text container" style="margin-top: 3vh;">
+    <div [innerHTML]="chordpro.format(content).html"></div>
+</div>

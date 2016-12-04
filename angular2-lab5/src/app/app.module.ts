@@ -21,6 +21,7 @@ import { ChordprosheetserviceService } from './chordprosheetservice.service';
 import { DmcapolicyComponent } from './dmcapolicy/dmcapolicy.component';
 
 import { ResponsiveModule } from '../../node_modules/ng2-responsive';
+import { FullscreenComponent } from './fullscreen/fullscreen.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ResponsiveModule } from '../../node_modules/ng2-responsive';
     LoggedinmenuComponent,
     PrivacypolicyComponent,
     LoggedinhomeComponent,
-    DmcapolicyComponent
+    DmcapolicyComponent,
+    FullscreenComponent
   ],
   imports: [
     BrowserModule,

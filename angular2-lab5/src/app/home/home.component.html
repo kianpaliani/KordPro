@@ -46,6 +46,9 @@
       <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.chordProSheet.owner}}</p>
       <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.chordProSheet.versionNumber}}</p>
       <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.chordProSheet.revisedDate}}</p>
+      <button class="ui button" (click)="viewFullScreen(chordProSheet.chordProSheet.title, chordProSheet.chordProSheet.owner)">
+        View
+      </button>
       <div [innerHTML]="chordpro.format(chordProSheet.chordProSheet.content).html" *ngIf="chordProSheet.visible"></div>
     </div>
   </div>

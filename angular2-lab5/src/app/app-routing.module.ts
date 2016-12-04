@@ -8,6 +8,7 @@ import { EditpageComponent } from './editpage/editpage.component';
 import { HomeComponent } from './home/home.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { DmcapolicyComponent } from './dmcapolicy/dmcapolicy.component';
+import { FullscreenComponent } from './fullscreen/fullscreen.component';
 
 import { AuthGuard } from './auth-guard.service';
 
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
   { path: 'editpage/:title', component: EditpageComponent, canActivate: [AuthGuard] },
   { path: 'editpage', component: EditpageComponent, canActivate: [AuthGuard] },
   { path: 'loggedinhome', component: LoggedinhomeComponent, canActivate: [AuthGuard] },
+  { path: 'fullscreen/:title/:owner', component: FullscreenComponent },
   {path: '**', redirectTo: '/home' }
 ];
 

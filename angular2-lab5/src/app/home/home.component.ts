@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ChordprosheetserviceService } from '../chordprosheetservice.service';
-import {LoginService} from '../login.service'
+import {LoginService} from '../login.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 var chordpro = require("chordprojs");
@@ -17,6 +17,10 @@ export class HomeComponent implements OnInit {
   chordProSheetViews: {chordProSheet: any, visible: boolean}[] = [];
 
   constructor(private http: Http, private chordProSheetService: ChordprosheetserviceService, private loginService: LoginService, private router: Router) { }
+
+  viewFullScreen(chordProSheetTitle: string, owner: string) {
+    this.router.navigate(['/fullscreen', chordProSheetTitle, owner]);
+  }
 
   ngOnInit() {
     //Navigate to loggedinhome if already logged in
