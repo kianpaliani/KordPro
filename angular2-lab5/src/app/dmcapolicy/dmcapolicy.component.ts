@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LoginService} from '../login.service';
 
 @Component({
   selector: 'app-dmcapolicy',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DmcapolicyComponent implements OnInit {
 
-  constructor() { }
+  loggedIn: boolean;
+
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+    
+    if (this.loginService.isLoggedIn()) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
+    
   }
 
 }

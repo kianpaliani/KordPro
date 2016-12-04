@@ -1,4 +1,6 @@
-<div class="ui menu">
+<app-loggedinmenu *ngIf="loggedIn"></app-loggedinmenu>
+
+<div class="ui menu" *ngIf="!loggedIn">
   
   <!-- Home Button -->
   <a class="item" routerLink="/home" routerLinkActive="active">
