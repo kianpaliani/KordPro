@@ -31,7 +31,7 @@
   <div class="ui segment" *ngFor="let chordProSheet of chordProSheetViews">
     <div (click)="chordProSheet.visible = !chordProSheet.visible">
       <h3 class="ui left aligned header">
-        {{chordProSheet.title}}
+        {{chordProSheet.chordProSheet.title}}
       </h3>
       <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.chordProSheet.owner}}</p>
       <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.chordProSheet.isPrivate}}</p>

@@ -1,31 +1,33 @@
 <app-loggedinmenu></app-loggedinmenu>
 
-<div class="ui main text container">
+<div class="ui main text container" style="margin-top: 3vh;">
   <h1 class="ui center aligned teal header">
     KordPro
   </h1>
   
   <button class="positive ui button" (click)="createChordProSheet()">Create</button>
   
-  <div class="ui segment" *ngFor="let chordProSheet of chordProSheets">
+  <div class="ui segment" *ngFor="let chordProSheet of chordProSheetViews">
     <h3 class="ui left aligned header">
-      {{chordProSheet.title}}
+      {{chordProSheet.chordProSheet.title}}
     </h3>
-    <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.owner}}</p>
-    <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.isPrivate}}</p>
-    <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.versionNumber}}</p>
-    <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.revisedDate}}</p>
+    <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.chordProSheet.owner}}</p>
+    <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.chordProSheet.isPrivate}}</p>
+    <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.chordProSheet.versionNumber}}</p>
+    <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.chordProSheet.revisedDate}}</p>
     <span>
-      <button class="ui button" (click)="viewChordProSheet(chordProSheet.title, chordProSheet.owner)">
-        View
+      <button class="ui button" (click)="chordProSheet.visible = !chordProSheet.visible" [ngSwitch]="chordProSheet.visible">
+        <div *ngSwitchCase="false">View</div>
+        <div *ngSwitchCase="true">Hide</div>
       </button>
-      <button class="ui button" (click)="editChordProSheet(chordProSheet.title)" *ngIf="chordProSheet.owner == username">
+      <button class="ui button" (click)="editChordProSheet(chordProSheet.title)" *ngIf="chordProSheet.chordProSheet.owner == username">
         Edit
       </button>
-      <button class="negative ui button" (click)="deleteChordProSheet(chordProSheet.title)" *ngIf="chordProSheet.owner == username">
+      <button class="negative ui button" (click)="deleteChordProSheet(chordProSheet.title)" *ngIf="chordProSheet.chordProSheet.owner == username">
         Delete
       </button>
     </span>
+    <div [innerHTML]="chordpro.format(chordProSheet.chordProSheet.content).html" *ngIf="chordProSheet.visible"></div>
   </div>
   
 </div>

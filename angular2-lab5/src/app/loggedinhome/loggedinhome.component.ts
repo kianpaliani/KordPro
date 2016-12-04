@@ -7,12 +7,17 @@ import { LoginService } from '../login.service';
 import { ChordprosheetserviceService } from '../chordprosheetservice.service';
 import { LoggedinmenuComponent } from '../loggedinmenu/loggedinmenu.component';
 
+var chordpro = require("chordprojs");
+
 @Component({
   selector: 'app-loggedinhome',
   templateUrl: './loggedinhome.component.html',
   styleUrls: ['./loggedinhome.component.css']
 })
 export class LoggedinhomeComponent implements OnInit {
+  
+  chordpro = chordpro;
+  chordProSheetViews: {chordProSheet: any, visible: boolean}[] = [];
   
   username: string;
   chordProSheets: any = [];
@@ -47,7 +52,12 @@ export class LoggedinhomeComponent implements OnInit {
     this.loginService.getUser().subscribe(user => this.username = user, err => console.log("Get user failed"));
     
     //Get logged in user's chordprosheets
-    this.chordProSheetService.getUsersChordProSheets().subscribe(chordprosheets => this.chordProSheets = chordprosheets, err => console.log("Get failed"));
+    this.chordProSheetService.getUsersChordProSheets()
+    .subscribe((chordprosheets) => {
+      this.chordProSheetViews = chordprosheets.map(chordprosheet => {
+        return {chordProSheet: chordprosheet, visible: false};
+      });
+    }, err => console.log("Get failed"));
     
   }
 
