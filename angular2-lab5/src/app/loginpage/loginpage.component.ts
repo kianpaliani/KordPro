@@ -31,19 +31,28 @@ export class LoginpageComponent implements OnInit {
   }
   
   createAccount() {
-    this.loginService.createAccount(this.createAccountUsername, this.createAccountPassword)
-    .subscribe(isSuccess => {
-      if (isSuccess == "Create Account Success") {
-        console.log("created account");
-        this.router.navigateByUrl('/loggedinhome');
-      } else if (isSuccess == "Username already exists") {
-        alert("Username is taken");
-      } else {
-        alert("Create Account Failed");
-        this.createAccountUsername = "";
-        this.createAccountPassword = "";
-      }
-    });
+    
+    if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.createAccountUsername)) {
+      this.loginService.createAccount(this.createAccountUsername, this.createAccountPassword)
+      .subscribe(isSuccess => {
+        if (isSuccess == "Create Account Success") {
+          console.log("created account");
+          this.router.navigateByUrl('/loggedinhome');
+        } else if (isSuccess == "Username already exists") {
+          alert("Username is taken");
+          this.createAccountUsername = "";
+          this.createAccountPassword = "";
+        } else {
+          alert("Create account failed");
+          this.createAccountUsername = "";
+          this.createAccountPassword = "";
+        }
+      });
+    } else {
+      alert("An email must be used");
+      this.createAccountUsername = "";
+      this.createAccountPassword = "";
+    }
   }
   
   ngOnInit() {
