@@ -22,6 +22,7 @@ import { DmcapolicyComponent } from './dmcapolicy/dmcapolicy.component';
 
 import { ResponsiveModule } from '../../node_modules/ng2-responsive';
 import { FullscreenComponent } from './fullscreen/fullscreen.component';
+import { VersionsComponent } from './versions/versions.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FullscreenComponent } from './fullscreen/fullscreen.component';
     PrivacypolicyComponent,
     LoggedinhomeComponent,
     DmcapolicyComponent,
-    FullscreenComponent
+    FullscreenComponent,
+    VersionsComponent
   ],
   imports: [
     BrowserModule,

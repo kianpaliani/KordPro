@@ -41,9 +41,13 @@ export class FullscreenComponent implements OnInit {
    //Get chordprosheet
     this.chordProSheetService.getChordProSheetView(this.title, this.owner)
     .subscribe(chordProSheet => {
-      //Get the chordprosheet
-      this.chordProSheet = chordProSheet;
-      this.content = chordProSheet.content;
+      if (typeof chordProSheet == "string") {
+        this.router.navigate(['/home']);
+      } else {
+        //Get the chordprosheet
+        this.chordProSheet = chordProSheet;
+        this.content = chordProSheet.content;
+      }
     }, err => {
       console.log("Get chordprosheet failed");
       this.router.navigate(['/loggedinhome']);

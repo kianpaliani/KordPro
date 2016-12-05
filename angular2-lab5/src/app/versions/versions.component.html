@@ -1,0 +1,69 @@
+<app-loggedinmenu *ngIf="loggedIn"></app-loggedinmenu>
+
+<div class="ui menu" *ngIf="!loggedIn">
+  
+  <!-- Home Button -->
+  <a class="item" routerLink="/home" routerLinkActive="active">
+    Home
+  </a>
+  
+  <!-- Security and Privacy Policy Button -->
+  <a class="item" routerLink="/privacypolicy" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;" *hideItBootstrap="['xs']">
+    Security & Privacy Policy
+  </a>
+  
+   <!-- Security and Privacy Policy Button -->
+  <a class="item" routerLink="/privacypolicy" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;" *showItBootstrap="['xs']">
+    Policy
+  </a>
+  
+  <!-- DMCA Policy -->
+  <a class="item" routerLink="/dmca" routerLinkActive="active" style="padding-top: 21px; padding-bottom: 21px;">
+    DMCA
+  </a>
+  
+  <!-- Login Button -->
+  <div class="right menu" style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px;">
+      <a class="ui teal button" routerLink="/loginpage" routerLinkActive="active">
+        Login
+      </a>
+  </div>
+  
+</div>
+
+<div class="ui main text container" style="margin-top: 3vh;">
+    
+  <h1 class="ui center aligned teal header">
+    Current Version
+  </h1>
+  
+  <div class="ui segment">
+    <div (click)="chordProSheet.visible = !chordProSheet.visible">
+      <h3 class="ui left aligned header">
+        {{chordProSheet.title}}
+      </h3>
+      <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.owner}}</p>
+      <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.isPrivate}}</p>
+      <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.versionNumber}}</p>
+      <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.revisedDate}}</p>
+      <div [innerHTML]="chordpro.format(chordProSheet.content).html" *ngIf="chordProSheet.visible"></div>
+    </div>
+  </div>
+
+  <h1 class="ui center aligned teal header">
+    Older Versions
+  </h1>
+  
+  <div class="ui segment" *ngFor="let chordProSheet of chordProSheetVersions">
+    <div (click)="chordProSheet.visible = !chordProSheet.visible">
+      <h3 class="ui left aligned header">
+        {{chordProSheet.title}}
+      </h3>
+      <p> <span style="font-weight: 900;">Owner: </span>{{chordProSheet.owner}}</p>
+      <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.versionNumber}}</p>
+      <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.revisedDate}}</p>
+      <div [innerHTML]="chordpro.format(chordProSheet.content).html" *ngIf="chordProSheet.visible"></div>
+    </div>
+  </div>
+  
+</div>

@@ -50,6 +50,10 @@ export class LoggedinhomeComponent implements OnInit {
                               },
                               err => console.log(err));
   }
+  
+  viewVersions(chordProSheetTitle: string, owner: string) {
+    this.router.navigate(['/versions', chordProSheetTitle, owner]);
+  }
 
   ngOnInit() {
     
@@ -59,9 +63,11 @@ export class LoggedinhomeComponent implements OnInit {
     //Get logged in user's chordprosheets
     this.chordProSheetService.getUsersChordProSheets()
     .subscribe((chordprosheets) => {
-      this.chordProSheetViews = chordprosheets.map(chordprosheet => {
-        return {chordProSheet: chordprosheet, visible: false};
-      });
+      if (chordprosheets != []) {
+        this.chordProSheetViews = chordprosheets.map(chordprosheet => {
+          return {chordProSheet: chordprosheet, visible: false};
+        });
+      }
     }, err => console.log("Get failed"));
     
   }

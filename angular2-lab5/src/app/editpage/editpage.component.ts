@@ -16,37 +16,11 @@ var chordpro = require("chordprojs");
 })
 export class EditpageComponent implements OnInit {
   
-  testString:string = "{t:Hallelujah}\n\
-{st:Jeff Buckley}\n\
-{c: Sheet Music by Leonord Cohen}\n\
-{define: Bm x24432}\n\
-#\n\
-#This tab is for Hallelujah, as i've found i've not really gotten on with the other ones\n\
-#here. The song is obviously picked but if you find that too difficult it also works\n\
-#well strummed but picking the root notes of the chord with your thumb. With the G and E7\n\
-#the start of each verse do a 2-3 up to the G and a 2-0 on the way down to the E7 on the\n\
-#E string.\n\
-{sot}\n\
-\n\
-{eot}\n\
-[G]  [Em]  [G]  [Em]\n\
-\n\
-[G]I heard there was a s[Em]ecret chord\n\
-That [G]David played and it [Em]pleased the Lord\n\
-But [C]you don't really [D7] care for music, d[G]o ya?   [D7]\n\
-W[G]ell it goes like this the [C]fourth, the [D7]fifth\n\
-[Em]The minor fall and the [C]major lift\n\
-The [D7]baffled king [B7]composing halle[Em]lujah\n\
-\n\
-{soc}\n\
-Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     [Em]  [G]  [Em]\n\
-{eoc}";
-  
   chordpro = chordpro;
   
-  chordSheetName:string;
+  chordSheetName:string = "";
   file: any;
-  typedChordSheet: string;
+  typedChordSheet: string = "";
   privacyOption: boolean = false;
   
   errorHappened: boolean = false;
@@ -99,6 +73,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
         alert("File must be of type plain text.");
       } else {
         this.typedChordSheet = evt.target.result;
+        this.errorAndWarningCheck();
       }
     }.bind(this);
     
@@ -111,6 +86,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
   //Save button clicked
   save() {
     
+    //Make sure fields aren't empty
     if (this.typedChordSheet != "" && this.chordSheetName != "") {
       
       let errorsAndWarnings: string[][] = [];
@@ -119,8 +95,10 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
       this.errorHappened = false;
       this.warningHappened = false;
       
+      //Get errors and warnings
       errorsAndWarnings = this.chordProValidate(this.typedChordSheet);
       
+      //Populate errors
       for (let error of errorsAndWarnings[0]) {
         let errorLineNum = error.slice(0, 1)
         let actualError = error.slice(1);
@@ -130,6 +108,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
         this.errorHappened = true;
       }
       
+      //Populate warnings
       for (let warning of errorsAndWarnings[1]) {
         let warningLineNum = warning.slice(0, 1)
         let actualWarning = warning.slice(1);
@@ -139,8 +118,10 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
         this.warningHappened = true;
       }
       
+      //Make sure there are no errors
       if (errorsAndWarnings[0] != undefined && errorsAndWarnings[0].length == 0) {
 
+        //Save chordprosheet
         this.editpageService.save(this.chordSheetName, this.typedChordSheet, this.privacyOption, this.newChordSheet, this.oldChordSheetName)
           .subscribe(isSuccess => {
             console.log(isSuccess);
@@ -179,6 +160,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
     }
   }
   
+  //Validate chordprosheet
   chordProValidate(input: string): string[][] {
     let errors: string[] = [];
     let warnings: string[] = [];
@@ -310,8 +292,7 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
     }
   }
   
-  onKey(event:any) {
-    
+  errorAndWarningCheck() {
     let errorsAndWarnings: string[][] = [];
     this.errorMessage = [];
     this.warningMessage = [];
@@ -337,5 +318,9 @@ Ha[C]llelujah, ha[Em]llelujah, ha[C]llelujah, ha[G]llelu[D7]-u-u-u-ja[G]aah     
     if (this.warningMessage != undefined && this.warningMessage.length > 0) {
       this.warningHappened = true;
     }
+  }
+  
+  onKey(event:any) {
+    this.errorAndWarningCheck();
   }
 }

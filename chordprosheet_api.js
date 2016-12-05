@@ -60,10 +60,19 @@ router.post('/save', function(req, res, next) {
     } else { //Editing a chordprosheet
         ChordProSheet.find({owner: owner, title: oldChordSheetName}).exec(function(err, chordProSheets1) {
             
+            var oldVersion = {
+            	owner: chordProSheets1[0].owner,
+        	    title: chordProSheets1[0].title,
+        	    content: chordProSheets1[0].content,
+        	    versionNumber: chordProSheets1[0].versionNumber,
+        	    revisedDate: chordProSheets1[0].revisedDate,
+        	    isPrivate: chordProSheets1[0].privacyOption
+            };
+            
             if (!err) {
                 
                 //Checking to make sure that something in the chordprosheet has changed
-                if (chordProSheets1[0].title == title && chordProSheets1[0].content == content && chordProSheets1[0].isPrivate == (privacyOption == "true")) {
+                if (chordProSheets1[0].title == title && chordProSheets1[0].content == content && chordProSheets1[0].isPrivate == privacyOption) {
                     res.send("Nothing has been edited");
                     return;
                 }
@@ -80,6 +89,8 @@ router.post('/save', function(req, res, next) {
                             chordProSheets1[0].versionNumber = chordProSheets1[0].versionNumber + 1;
                             chordProSheets1[0].revisedDate = new Date();
                             
+                            chordProSheets1[0].oldVersions.push(oldVersion);
+                            
                             chordProSheets1[0].save(function(err, savedChordProSheet) {
                                 if (!err) {
                                     res.send("Save Success");
@@ -94,11 +105,14 @@ router.post('/save', function(req, res, next) {
                         }
                     });
                 } else { //If title remained the same
+                
                     chordProSheets1[0].title = title;
                     chordProSheets1[0].content = content;
                     chordProSheets1[0].isPrivate = privacyOption;
                     chordProSheets1[0].versionNumber = chordProSheets1[0].versionNumber + 1;
                     chordProSheets1[0].revisedDate = new Date();
+                    
+                    chordProSheets1[0].oldVersions.push(oldVersion);
                     
                     chordProSheets1[0].save(function(err, savedChordProSheet) {
                         if (!err) {
@@ -122,7 +136,7 @@ router.get('/public', function(req, res, next) {
         if (!err && chordProSheets.length > 0) {
             res.send(chordProSheets);
         } else if (!err && chordProSheets.length == 0) {
-            res.send({});
+            res.send([]);
         } else {
             res.status(500).send("Save Failed");
         }
@@ -155,8 +169,6 @@ router.get('/', function(req, res, next) {
 //Get a specific chordprosheet for a loggedin user
 router.get('/:title', function(req, res, next) {
     
-    console.log("shouldn't be here");
-    
     //Checks to see if the user is logged in
     if (!req.signedCookies.username) {
         res.send("Get not allowed");
@@ -170,7 +182,6 @@ router.get('/:title', function(req, res, next) {
     ChordProSheet.find({owner: owner, title: title}).exec(function(err, chordProSheets) {
         if (!err) {
             res.send(chordProSheets[0]);
-            //res.send("hello");
         } else {
             res.status(500).send("Get chordprosheet failed");
         }

@@ -16,6 +16,7 @@ export class LoggedinmenuComponent implements OnInit {
     this.loginService.loggedIn = false;
     Cookie.delete('username');
     this.router.navigateByUrl('/loginpage');
+    console.log("Logged Out");
   }
 
   ngOnInit() {

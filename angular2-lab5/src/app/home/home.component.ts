@@ -21,6 +21,10 @@ export class HomeComponent implements OnInit {
   viewFullScreen(chordProSheetTitle: string, owner: string) {
     this.router.navigate(['/fullscreen', chordProSheetTitle, owner]);
   }
+  
+  viewVersions(chordProSheetTitle: string, owner: string) {
+    this.router.navigate(['/versions', chordProSheetTitle, owner]);
+  }
 
   ngOnInit() {
     //Navigate to loggedinhome if already logged in
@@ -31,9 +35,11 @@ export class HomeComponent implements OnInit {
     //Get public chordprosheets
     this.chordProSheetService.getPublicChordProSheets()
     .subscribe((chordprosheets) => {
-      this.chordProSheetViews = chordprosheets.map(chordprosheet => {
-        return {chordProSheet: chordprosheet, visible: false};
-      });
+      if (chordprosheets != []) {
+        this.chordProSheetViews = chordprosheets.map(chordprosheet => {
+          return {chordProSheet: chordprosheet, visible: false};
+        });
+      }
     }, err => console.log("Get failed"));
     
   }

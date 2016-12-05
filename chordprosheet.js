@@ -7,7 +7,15 @@ var ChordProSheetSchema = new Schema({
     content: String,
     versionNumber: Number,
     revisedDate: String,
-    isPrivate: Boolean
+    isPrivate: Boolean,
+    oldVersions: [{
+    	owner: String,
+	    title: String,
+	    content: String,
+	    versionNumber: Number,
+	    revisedDate: String,
+	    isPrivate: Boolean
+    }]
 });
 
 module.exports = mongoose.model("ChordProSheet", ChordProSheetSchema);

@@ -16,21 +16,22 @@
       <p> <span style="font-weight: 900;">Private: </span>{{chordProSheet.chordProSheet.isPrivate}}</p>
       <p> <span style="font-weight: 900;">Version: </span>{{chordProSheet.chordProSheet.versionNumber}}</p>
       <p> <span style="font-weight: 900;">Modified: </span>{{chordProSheet.chordProSheet.revisedDate}}</p>
-      <span>
+      <div>
         <button class="ui button" (click)="viewFullScreen(chordProSheet.chordProSheet.title, chordProSheet.chordProSheet.owner)">
           View
         </button>
-        <!-- <button class="ui button" (click)="chordProSheet.visible = !chordProSheet.visible" [ngSwitch]="chordProSheet.visible">
-          <div *ngSwitchCase="false">View</div>
-          <div *ngSwitchCase="true">Hide</div>
-        </button> -->
+        <button class="ui button" (click)="viewVersions(chordProSheet.chordProSheet.title, chordProSheet.chordProSheet.owner)">
+          Versions
+        </button>
+      </div>
+      <div style="margin-top: 3vh;">
         <button class="ui button" (click)="editChordProSheet(chordProSheet.chordProSheet.title)" *ngIf="chordProSheet.chordProSheet.owner == username">
           Edit
         </button>
         <button class="negative ui button" (click)="deleteChordProSheet(chordProSheet.chordProSheet.title)" *ngIf="chordProSheet.chordProSheet.owner == username">
           Delete
         </button>
-      </span>
+      </div>
       <div [innerHTML]="chordpro.format(chordProSheet.chordProSheet.content).html" *ngIf="chordProSheet.visible"></div>
     </div>
   </div>

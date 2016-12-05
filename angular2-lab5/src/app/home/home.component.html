@@ -49,6 +49,9 @@
       <button class="ui button" (click)="viewFullScreen(chordProSheet.chordProSheet.title, chordProSheet.chordProSheet.owner)">
         View
       </button>
+      <button class="ui button" (click)="viewVersions(chordProSheet.chordProSheet.title, chordProSheet.chordProSheet.owner)">
+        Versions
+      </button>
       <div [innerHTML]="chordpro.format(chordProSheet.chordProSheet.content).html" *ngIf="chordProSheet.visible"></div>
     </div>
   </div>
