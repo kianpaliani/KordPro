@@ -33,21 +33,27 @@ export class LoginpageComponent implements OnInit {
   createAccount() {
     
     if (/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/.test(this.createAccountUsername)) {
-      this.loginService.createAccount(this.createAccountUsername, this.createAccountPassword)
-      .subscribe(isSuccess => {
-        if (isSuccess == "Create Account Success") {
-          console.log("created account");
-          this.router.navigateByUrl('/loggedinhome');
-        } else if (isSuccess == "Email already exists") {
-          alert("Email is taken");
-          this.createAccountUsername = "";
-          this.createAccountPassword = "";
-        } else {
-          alert("Create account failed");
-          this.createAccountUsername = "";
-          this.createAccountPassword = "";
-        }
-      });
+      if (this.createAccountUsername != "" && this.createAccountPassword != "") {
+        this.loginService.createAccount(this.createAccountUsername, this.createAccountPassword)
+        .subscribe(isSuccess => {
+          if (isSuccess == "Create Account Success") {
+            console.log("created account");
+            this.router.navigateByUrl('/loggedinhome');
+          } else if (isSuccess == "Email already exists") {
+            alert("Email is taken");
+            this.createAccountUsername = "";
+            this.createAccountPassword = "";
+          } else {
+            alert("Create account failed");
+            this.createAccountUsername = "";
+            this.createAccountPassword = "";
+          }
+        });
+      } else {
+        alert("Create account fields cannot be empty");
+        this.createAccountUsername = "";
+        this.createAccountPassword = "";
+      }
     } else {
       alert("An email must be used");
       this.createAccountUsername = "";

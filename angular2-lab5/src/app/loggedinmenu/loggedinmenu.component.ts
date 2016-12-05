@@ -15,7 +15,7 @@ export class LoggedinmenuComponent implements OnInit {
   logout() {
     this.loginService.loggedIn = false;
     Cookie.delete('username');
-    this.router.navigateByUrl('/loginpage');
+    this.router.navigate(['/loginpage']);
     console.log("Logged Out");
   }
 
