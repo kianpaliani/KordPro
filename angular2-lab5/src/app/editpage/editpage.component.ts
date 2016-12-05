@@ -262,34 +262,38 @@ export class EditpageComponent implements OnInit {
     this.loginService.getUser().subscribe(user => this.username = user, err => console.log("Get user failed"));
     
     //Get the title of the chord sheet from the paramaters (if one exists)
-    this.route.params.subscribe(params => this.title = params['title']);
-    
-    //Checks to see if a title parameter was passed in the url
-    if (this.title != undefined) {
+    this.route.params.subscribe(params => {
       
-      //Get chordprosheet
-      this.chordProSheetService.getChordProSheet(this.title)
-                                .subscribe(chordProSheet => {
+      //Get title
+      this.title = params['title']
+      
+      //Checks to see if a title parameter was passed in the url
+      if (this.title != undefined) {
+        
+        //Get chordprosheet
+        this.chordProSheetService.getChordProSheet(this.title)
+                                  .subscribe(chordProSheet => {
+                                    
+                                    //Get the chordprosheet
+                                    this.chordProSheet = chordProSheet;
                                   
-                                  //Get the chordprosheet
-                                  this.chordProSheet = chordProSheet;
-                                
-                                  //Not creating a new chordsheet
-                                  this.newChordSheet = false;
-                                  this.editpageTitle = "Edit";
-                                
-                                  //Get data from chordProSheet
-                                  this.chordSheetName = this.chordProSheet.title;
-                                  this.oldChordSheetName = this.chordProSheet.title;
-                                  this.typedChordSheet = this.chordProSheet.content;
-                                  this.privacyOption = this.chordProSheet.isPrivate;
-                                }, err => {
-                                  console.log("Get chordprosheet failed");
-                                  this.router.navigate(['/loggedinhome']);
-                                });
-    } else {
-      this.editpageTitle = "Create";
-    }
+                                    //Not creating a new chordsheet
+                                    this.newChordSheet = false;
+                                    this.editpageTitle = "Edit";
+                                  
+                                    //Get data from chordProSheet
+                                    this.chordSheetName = this.chordProSheet.title;
+                                    this.oldChordSheetName = this.chordProSheet.title;
+                                    this.typedChordSheet = this.chordProSheet.content;
+                                    this.privacyOption = this.chordProSheet.isPrivate;
+                                  }, err => {
+                                    console.log("Get chordprosheet failed");
+                                    this.router.navigate(['/loggedinhome']);
+                                  });
+      } else {
+        this.editpageTitle = "Create";
+      }
+    });
   }
   
   errorAndWarningCheck() {

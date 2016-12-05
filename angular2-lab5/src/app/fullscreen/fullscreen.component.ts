@@ -7,6 +7,8 @@ import { ChordprosheetserviceService } from '../chordprosheetservice.service';
 import { LoggedinmenuComponent } from '../loggedinmenu/loggedinmenu.component';
 import {LoginService} from '../login.service';
 
+import {Location} from '@angular/common';
+
 var chordpro = require("chordprojs");
 
 @Component({
@@ -24,7 +26,11 @@ export class FullscreenComponent implements OnInit {
   content: string;
   loggedIn: boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, private chordProSheetService: ChordprosheetserviceService, private loginService: LoginService) { }
+  constructor(private location: Location, private router: Router, private route: ActivatedRoute, private chordProSheetService: ChordprosheetserviceService, private loginService: LoginService) { }
+
+  back() {
+    this.location.back();
+  }
 
   ngOnInit() {
     
