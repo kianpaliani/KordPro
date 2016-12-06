@@ -150,6 +150,10 @@ export class EditpageComponent implements OnInit {
         this.chordSheetName = "";
         this.typedChordSheet= "";
         this.privacyOption = false;
+        this.errorMessage = [];
+        this.warningMessage = [];
+        this.errorHappened = false;
+        this.warningHappened = false;
         if (this.uploadFileInput != null) {
           this.uploadFileInput.value = "";
         }
