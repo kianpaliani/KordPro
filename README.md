@@ -1,7 +1,7 @@
 # KordPro
 
-./mongod
+`./mongod`
 
-npm run nodemon
+`npm run nodemon`
 
-npm run ng
+`npm run ng`
